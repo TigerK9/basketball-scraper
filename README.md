@@ -1,2 +1,1 @@
-Later I will update the readme based on what i've done and how to use it - currently i haven't started the project. The plan is to make a web scraper for ncaa basketball teams, possibly creating a GUI,
-and the ability to predict games based on previous stats.
+Currently, my plan is to make an api that uses data scraped by swar's nba api - https://github.com/swar/nba_api - and using that data I'll make some sort of gui display that allows you to interact with the stats.
