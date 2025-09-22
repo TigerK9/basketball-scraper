@@ -1,20 +1,86 @@
 from flask import Flask, render_template
+from nba_api.stats.static import teams
+from nba_api.stats.endpoints import commonteamroster
 
 app = Flask(__name__)
 
-# This is a sample list of player data
-# In your project, you would replace this with data from the nba_api
-sample_players = [
-    {'name': 'LeBron James', 'pts': 25.4, 'ast': 7.2, 'reb': 7.6},
-    {'name': 'Stephen Curry', 'pts': 27.5, 'ast': 6.3, 'reb': 5.2},
-    {'name': 'Kevin Durant', 'pts': 29.1, 'ast': 5.0, 'reb': 7.4},
-]
+# A mapping from URL slugs to the team's official full name
+team_name_map = {
+    'celtics': 'Boston Celtics',
+    'raptors': 'Toronto Raptors',
+    'sixers': 'Philadelphia 76ers',
+    'nets': 'Brooklyn Nets',
+    'knicks': 'New York Knicks',
+    'pacers': 'Indiana Pacers',
+    'bucks': 'Milwaukee Bucks',
+    'bulls': 'Chicago Bulls',
+    'pistons': 'Detroit Pistons',
+    'cavaliers': 'Cleveland Cavaliers',
+    'heat': 'Miami Heat',
+    'hornets': 'Charlotte Hornets',
+    'wizards': 'Washington Wizards',
+    'magic': 'Orlando Magic',
+    'hawks': 'Atlanta Hawks',
+    'nuggets': 'Denver Nuggets',
+    'thunder': 'Oklahoma City Thunder',
+    'jazz': 'Utah Jazz',
+    'blazers': 'Portland Trail Blazers',
+    'timberwolves': 'Minnesota Timberwolves',
+    'lakers': 'Los Angeles Lakers',
+    'clippers': 'Los Angeles Clippers',
+    'suns': 'Phoenix Suns',
+    'kings': 'Sacramento Kings',
+    'warriors': 'Golden State Warriors',
+    'rockets': 'Houston Rockets',
+    'mavericks': 'Dallas Mavericks',
+    'grizzlies': 'Memphis Grizzlies',
+    'spurs': 'San Antonio Spurs',
+    'pelicans': 'New Orleans Pelicans',
+}
+
+# Get all NBA teams once when the app starts
+nba_teams = teams.get_teams()
+
+# Create a dictionary to map full team names to their official team ID
+team_name_to_id = {
+    team['full_name']: team['id'] 
+    for team in nba_teams
+}
 
 @app.route('/')
-def display_players():
-    # Renders the players.html template and passes the sample data to it
-    # return render_template('players.html', players=sample_players)
+def home_page():
     return render_template('homePage.html')
+
+# This is a dynamic route that takes a team name slug
+@app.route('/team/<team_name_slug>')
+def team_page(team_name_slug):
+    # Get the official team name from the map using the slug
+    full_team_name = team_name_map.get(team_name_slug)
+    
+    # If the slug is in our map, get the corresponding ID
+    if full_team_name:
+        team_id = team_name_to_id.get(full_team_name)
+    else:
+        team_id = None
+
+    # If a team ID is found, fetch the roster
+    if team_id:
+        try:
+            # Use the commonteamroster endpoint to get the team's roster
+            roster_data = commonteamroster.CommonTeamRoster(team_id=team_id)
+            players_df = roster_data.get_data_frames()[0]
+
+            # Convert the dataframe to a list of dictionaries
+            players = players_df[['PLAYER', 'POSITION', 'HEIGHT', 'WEIGHT', 'AGE']].to_dict('records')
+
+            # Pass the team name and player data to the template
+            return render_template('players.html', players=players, team=full_team_name)
+        except Exception as e:
+            # Handle potential API errors
+            return f"An error occurred: {e}", 500
+    else:
+        # Handle cases where the team name isn't found
+        return "Team not found", 404
 
 if __name__ == '__main__':
     app.run(debug=True)

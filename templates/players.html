@@ -50,12 +50,13 @@
         {% if players %}
             {% for player in players %}
                 <div class="player-card">
-                    <h2>{{ player.name }}</h2>
+                    <h2>{{ player.PLAYER }}</h2>
                     <ul>
-                        <li>Points Per Game: {{ player.pts }}</li>
-                        <li>Assists Per Game: {{ player.ast }}</li>
-                        <li>Rebounds Per Game: {{ player.reb }}</li>
-                        </ul>
+                        <li>Position: {{ player.POSITION }}</li>
+                        <li>Height: {{ player.HEIGHT }}</li>
+                        <li>Weight: {{ player.WEIGHT }}</li>
+                        <li>Age: {{ player.AGE }}</li>
+                    </ul>
                 </div>
             {% endfor %}
         {% else %}
