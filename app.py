@@ -1,8 +1,10 @@
 from flask import Flask, render_template
 from nba_api.stats.static import teams
 from nba_api.stats.endpoints import commonteamroster
+from flask_livereload import LiveReload
 
 app = Flask(__name__)
+LiveReload(app)
 
 # A mapping from URL slugs to the team's official full name
 team_name_map = {
@@ -70,8 +72,8 @@ def team_page(team_name_slug):
             roster_data = commonteamroster.CommonTeamRoster(team_id=team_id)
             players_df = roster_data.get_data_frames()[0]
 
-            # Convert the dataframe to a list of dictionaries
-            players = players_df[['PLAYER', 'POSITION', 'HEIGHT', 'WEIGHT', 'AGE']].to_dict('records')
+            # Convert the dataframe to a list of dictionaries, including PLAYER_ID
+            players = players_df[['PLAYER_ID', 'PLAYER', 'POSITION', 'HEIGHT', 'WEIGHT', 'AGE']].to_dict('records')
 
             # Pass the team name and player data to the template
             return render_template('players.html', players=players, team=full_team_name)

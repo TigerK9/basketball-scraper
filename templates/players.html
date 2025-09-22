@@ -23,11 +23,22 @@
             color: #006bb6;
             text-align: center;
         }
+        .player-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between; /* Distributes items evenly on each row */
+            gap: 20px; /* Space between the rows and columns */
+        }
         .player-card {
             border: 1px solid #ddd;
             border-radius: 6px;
             padding: 15px;
-            margin-bottom: 15px;
+            margin-bottom: 0; /* Removed margin-bottom here to use gap on the grid instead */
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            flex: 1 1 calc(50% - 10px); /* Two cards per row, with a gap */
+            box-sizing: border-box; /* Ensures padding is included in the width */
         }
         .player-card h2 {
             margin-top: 0;
@@ -40,25 +51,36 @@
         li {
             margin-bottom: 5px;
         }
+        .player-image {
+            width: 100px;
+            height: auto;
+            border-radius: 50%;
+        }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <h1>Current Season Player Stats</h1>
+        <h1>{{ team }} Roster</h1>
+        <p><a href="{{ url_for('home_page') }}">Back to Conferences</a></p>
 
         {% if players %}
-            {% for player in players %}
-                <div class="player-card">
-                    <h2>{{ player.PLAYER }}</h2>
-                    <ul>
-                        <li>Position: {{ player.POSITION }}</li>
-                        <li>Height: {{ player.HEIGHT }}</li>
-                        <li>Weight: {{ player.WEIGHT }}</li>
-                        <li>Age: {{ player.AGE }}</li>
-                    </ul>
-                </div>
-            {% endfor %}
+            <div class="player-grid">
+                {% for player in players %}
+                    <div class="player-card">
+                        <img class="player-image" src="https://cdn.nba.com/headshots/nba/latest/260x190/{{ player.PLAYER_ID }}.png" alt="Profile picture of {{ player.PLAYER }}">
+                        <div>
+                            <h2>{{ player.PLAYER }}</h2>
+                            <ul>
+                                <li>Position: {{ player.POSITION }}</li>
+                                <li>Height: {{ player.HEIGHT }}</li>
+                                <li>Weight: {{ player.WEIGHT }}</li>
+                                <li>Age: {{ player.AGE }}</li>
+                            </ul>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
         {% else %}
             <p>No player data available. Please check the API connection.</p>
         {% endif %}
