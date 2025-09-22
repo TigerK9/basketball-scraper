@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NBA Player Stats</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 20px;
+        }
+        .container {
+            max-width: 900px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #006bb6;
+            text-align: center;
+        }
+        .player-card {
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+        .player-card h2 {
+            margin-top: 0;
+            color: #c9082a;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        li {
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Current Season Player Stats</h1>
+
+        {% if players %}
+            {% for player in players %}
+                <div class="player-card">
+                    <h2>{{ player.name }}</h2>
+                    <ul>
+                        <li>Points Per Game: {{ player.pts }}</li>
+                        <li>Assists Per Game: {{ player.ast }}</li>
+                        <li>Rebounds Per Game: {{ player.reb }}</li>
+                        </ul>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>No player data available. Please check the API connection.</p>
+        {% endif %}
+
+    </div>
+
+</body>
+</html>
