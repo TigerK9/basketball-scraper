@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NBA Conferences</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;600;700&display=swap');
+        body {
+            font-family: 'Noto Sans', sans-serif;
+            background-color: #000000;
+            color: #FFFFFF;
+        }
+        .conference-section {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 4rem 2rem;
+            width: 100%;
+        }
+        .conference-header {
+            display: none;
+        }
+        .conference-content {
+            display: flex;
+            align-items: flex-start; /* Changed to flex-start for better alignment */
+            gap: 2rem;
+            width: 100%;
+            max-width: 1200px;
+        }
+        .conference-logo-small {
+            width: 100px;
+            height: auto;
+            flex-shrink: 0;
+            align-self: flex-start;
+            margin-top: 7px;
+        }
+        .division-container {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            width: 100%;
+        }
+        .division-row {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 2rem;
+        }
+        .division-name {
+            font-size: 1rem;
+            font-weight: 600;
+            width: 150px;
+            text-align: right;
+            text-transform: uppercase;
+        }
+        .teams-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+        }
+        .team-card {
+            width: 120px;
+            height: 120px;
+            border-radius: 3px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .team-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
+        }
+        .team-logo {
+            width: 80%;
+            height: 80%;
+            object-fit: contain;
+        }
+    </style>
+</head>
+<body class="bg-black text-white">
+
+    <div class="conference-section" style="background-color: #000000;">
+        <div class="conference-header">
+            <img src="{{ url_for('static', filename='images/eastern-logo.svg') }}" alt="Eastern Conference Logo" class="conference-logo">
+        </div>
+        
+        <div class="conference-content">
+            <img src="{{ url_for('static', filename='images/eastern-logo.svg') }}" alt="Eastern Conference Logo" class="conference-logo-small">
+            <div class="division-container">
+                <div class="division-row">
+                    <h2 class="division-name">Atlantic</h2>
+                    <div class="teams-grid">
+                        <a href="index.html" class="team-card" style="background-color: #007A33;">
+                            <img src="{{ url_for('static', filename='images/celtics-logo.svg') }}" alt="Boston Celtics Logo" class="team-logo">
+                        </a>
+                        <a href="index.html" class="team-card" style="background-color: #CE1141;">
+                            <img src="{{ url_for('static', filename='images/raptors-logo.svg') }}" alt="Toronto Raptors Logo" class="team-logo">
+                        </a>
+                        <a href="index.html" class="team-card" style="background-color: #006BB6;">
+                            <img src="{{ url_for('static', filename='images/sixers-logo.svg') }}" alt="Philadelphia 76ers Logo" class="team-logo">
+                        </a>
+                        <a href="index.html" class="team-card" style="background-color: #FFFFFF;">
+                            <img src="{{ url_for('static', filename='images/nets-logo.svg') }}" alt="Brooklyn Nets Logo" class="team-logo">
+                        </a>
+                        <a href="index.html" class="team-card" style="background-color: #006BB6;">
+                            <img src="{{ url_for('static', filename='images/knicks-logo.svg') }}" alt="New York Knicks Logo" class="team-logo">
+                        </a>
+                    </div>
+                </div>
+
+                <div class="division-row">
+                    <h2 class="division-name">Central</h2>
+                    <div class="teams-grid">
+                        <a href="index.html" class="team-card" style="background-color: #002D62;">
+                            <img src="{{ url_for('static', filename='images/pacers-logo.svg') }}" alt="Indiana Pacers Logo" class="team-logo">
+                        </a>
+                        <a href="index.html" class="team-card" style="background-color: #00471B;">
+                            <img src="{{ url_for('static', filename='images/bucks-logo.svg') }}" alt="Milwaukee Bucks Logo" class="team-logo">
+                        </a>
+                        <a href="index.html" class="team-card" style="background-color: #CE1141;">
+                            <img src="{{ url_for('static', filename='images/bulls-logo.svg') }}" alt="Chicago Bulls Logo" class="team-logo">
+                        </a>
+                        <a href="index.html" class="team-card" style="background-color: #1D42BA;">
+                            <img src="{{ url_for('static', filename='images/pistons-logo.svg') }}" alt="Detroit Pistons Logo" class="team-logo">
+                        </a>
+                        <a href="index.html" class="team-card" style="background-color: #72253D;">
+                            <img src="{{ url_for('static', filename='images/cavs-logo.svg') }}" alt="Cleveland Cavaliers Logo" class="team-logo">
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="division-row">
+                    <h2 class="division-name">Southeast</h2>
+                    <div class="teams-grid">
+                        <a href="index.html" class="team-card" style="background-color: #98002E;">
+                            <img src="{{ url_for('static', filename='images/heat-logo.svg') }}" alt="Miami Heat Logo" class="team-logo">
+                        </a>
+                        <a href="index.html" class="team-card" style="background-color: #00788C;">
+                            <img src="{{ url_for('static', filename='images/hornets-logo.svg') }}" alt="Charlotte Hornets Logo" class="team-logo">
+                        </a>
+                        <a href="index.html" class="team-card" style="background-color: #002B5C;">
+                            <img src="{{ url_for('static', filename='images/wizards-logo.svg') }}" alt="Washington Wizards Logo" class="team-logo">
+                        </a>
+                        <a href="index.html" class="team-card" style="background-color: #0077C0;">
+                            <img src="{{ url_for('static', filename='images/magic-logo.svg') }}" alt="Orlando Magic Logo" class="team-logo">
+                        </a>
+                        <a href="index.html" class="team-card" style="background-color: #C8102E;">
+                            <img src="{{ url_for('static', filename='images/hawks-logo.svg') }}" alt="Atlanta Hawks Logo" class="team-logo">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="conference-section" style="background-color: #000000;">
+        <div class="conference-header">
+            <img src="{{ url_for('static', filename='images/western-logo.svg') }}" alt="Western Conference Logo" class="conference-logo">
+        </div>
+
+        <div class="conference-content">
+            <img src="{{ url_for('static', filename='images/western-logo.svg') }}" alt="Western Conference Logo" class="conference-logo-small">
+            <div class="division-container">
+                <div class="division-row">
+                    <h2 class="division-name">Northwest</h2>
+                    <div class="teams-grid">
+                        <a href="index.html" class="team-card" style="background-color: #0E2240;">
+                            <img src="{{ url_for('static', filename='images/nuggets-logo.svg') }}" alt="Denver Nuggets Logo" class="team-logo">
+                        </a>
+                        <a href="index.html" class="team-card" style="background-color: #007AC1;">
+                            <img src="{{ url_for('static', filename='images/thunder-logo.svg') }}" alt="Oklahoma City Thunder Logo" class="team-logo">
+                        </a>
+                        <a href="index.html" class="team-card" style="background-color: #002B5C;">
+                            <img src="{{ url_for('static', filename='images/jazz-logo.svg') }}" alt="Utah Jazz Logo" class="team-logo">
+                        </a>
+                        <a href="index.html" class="team-card" style="background-color: #E03A3E;">
+                            <img src="{{ url_for('static', filename='images/blazers-logo.svg') }}" alt="Portland Trail Blazers Logo" class="team-logo">
+                        </a>
+                        <a href="index.html" class="team-card" style="background-color: #002A5B;">
+                            <img src="{{ url_for('static', filename='images/timberwolves-logo.svg') }}" alt="Minnesota Timberwolves Logo" class="team-logo">
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="division-row">
+                    <h2 class="division-name">Pacific</h2>
+                    <div class="teams-grid">
+                        <a href="index.html" class="team-card" style="background-color: #552583;">
+                            <img src="{{ url_for('static', filename='images/lakers-logo.svg') }}" alt="Los Angeles Lakers Logo" class="team-logo">
+                        </a>
+                        <a href="index.html" class="team-card" style="background-color: #C8102E;">
+                            <img src="{{ url_for('static', filename='images/clippers-logo.svg') }}" alt="Los Angeles Clippers Logo" class="team-logo">
+                        </a>
+                        <a href="index.html" class="team-card" style="background-color: #1D1160;">
+                            <img src="{{ url_for('static', filename='images/suns-logo.svg') }}" alt="Phoenix Suns Logo" class="team-logo">
+                        </a>
+                        <a href="index.html" class="team-card" style="background-color: #5A2D81;">
+                            <img src="{{ url_for('static', filename='images/kings-logo.svg') }}" alt="Sacramento Kings Logo" class="team-logo">
+                        </a>
+                        <a href="index.html" class="team-card" style="background-color: #1D428A;">
+                            <img src="{{ url_for('static', filename='images/warriors-logo.svg') }}" alt="Golden State Warriors Logo" class="team-logo">
+                        </a>
+                    </div>
+                </div>
+
+                <div class="division-row">
+                    <h2 class="division-name">Southwest</h2>
+                    <div class="teams-grid">
+                        <a href="index.html" class="team-card" style="background-color: #C21F32;">
+                            <img src="{{ url_for('static', filename='images/rockets-logo.svg') }}" alt="Houston Rockets Logo" class="team-logo">
+                        </a>
+                        <a href="index.html" class="team-card" style="background-color: #007DC5;">
+                            <img src="{{ url_for('static', filename='images/mavs-logo.svg') }}" alt="Dallas Mavericks Logo" class="team-logo">
+                        </a>
+                        <a href="index.html" class="team-card" style="background-color: #5D76A9;">
+                            <img src="{{ url_for('static', filename='images/grizzlies-logo.svg') }}" alt="Memphis Grizzlies Logo" class="team-logo">
+                        </a>
+                        <a href="index.html" class="team-card" style="background-color: #C4CED4;">
+                            <img src="{{ url_for('static', filename='images/spurs-logo.svg') }}" alt="San Antonio Spurs Logo" class="team-logo">
+                        </a>
+                        <a href="index.html" class="team-card" style="background-color: #012B5F;">
+                            <img src="{{ url_for('static', filename='images/pelicans-logo.svg') }}" alt="New Orleans Pelicans Logo" class="team-logo">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
