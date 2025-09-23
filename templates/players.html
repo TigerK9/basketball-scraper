@@ -7,42 +7,42 @@
     <style>
         body {
             font-family: sans-serif;
-            background-color: #f4f4f4;
-            color: #333;
+            background-color: #282828; /* Dark gray background */
+            color: #FFFFFF; /* White text for contrast */
             margin: 20px;
         }
         .container {
             max-width: 900px;
             margin: auto;
-            background: white;
+            background: #444444; /* Lighter gray container */
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
         }
         h1 {
-            color: #006bb6;
+            color: #FFFFFF; /* White heading color */
             text-align: center;
         }
         .player-grid {
             display: flex;
             flex-wrap: wrap;
-            justify-content: space-between; /* Distributes items evenly on each row */
-            gap: 20px; /* Space between the rows and columns */
+            justify-content: space-between;
+            gap: 20px;
         }
         .player-card {
-            border: 1px solid #ddd;
+            border: 1px solid #666666; /* Slightly lighter border */
             border-radius: 6px;
             padding: 15px;
-            margin-bottom: 0; /* Removed margin-bottom here to use gap on the grid instead */
+            margin-bottom: 0;
             display: flex;
             align-items: center;
             gap: 20px;
-            flex: 1 1 calc(50% - 10px); /* Two cards per row, with a gap */
-            box-sizing: border-box; /* Ensures padding is included in the width */
+            flex: 1 1 calc(50% - 10px);
+            box-sizing: border-box;
         }
         .player-card h2 {
             margin-top: 0;
-            color: #c9082a;
+            color: #FFFFFF; /* Changed player name color to white */
         }
         ul {
             list-style: none;
@@ -52,9 +52,12 @@
             margin-bottom: 5px;
         }
         .player-image {
-            width: 100px;
+            width: 150px;
             height: auto;
-            border-radius: 50%;
+            border-radius: 0;
+        }
+        a {
+            color: #1a73e8; /* Ensure links are visible on dark background */
         }
     </style>
 </head>
