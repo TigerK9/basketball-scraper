@@ -14,7 +14,7 @@ docker build -t nba-stats-app .
 docker run -p 5001:5000 nba-stats-app
 ```
 
-The application will be available at `http://localhost:5001`.
+The application will be available at `http://localhost:5001`
 
 Currently, my plan is to make an api that uses data scraped by swar's nba api - https://github.com/swar/nba_api - and using that data I'll make some sort of gui display that allows you to interact with the stats.
 
