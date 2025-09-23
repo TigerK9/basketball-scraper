@@ -3,18 +3,18 @@ Follow these steps to build and run the application using Docker. Docker can be 
 1.  **Build the Docker Image**:
         Navigate to the project's root directory in your terminal and run the following command to build the Docker image.
 
-        ```bash
-        docker build -t nba-stats-app .
-        ```
+```bash
+docker build -t nba-stats-app .
+```
 
 2.  **Run the Container**:
         Once the image is built, you can run the application in a Docker container.
 
-        ```bash
-        docker run -p 5001:5000 nba-stats-app
-        ```
+```bash
+docker run -p 5001:5000 nba-stats-app
+```
 
-        The application will be available at `http://localhost:5001`.
+The application will be available at `http://localhost:5001`.
 
 Currently, my plan is to make an api that uses data scraped by swar's nba api - https://github.com/swar/nba_api - and using that data I'll make some sort of gui display that allows you to interact with the stats.
 
