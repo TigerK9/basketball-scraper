@@ -6,7 +6,22 @@ from flask_livereload import LiveReload
 app = Flask(__name__)
 LiveReload(app)
 
+# ----------------- NEW: Position Mapping Dictionary -----------------
+# This maps the abbreviations (C, F, G) to their full names.
+POSITION_MAP = {
+    'C': 'Center',
+    'F': 'Forward',
+    'G': 'Guard',
+    'C-F': 'Center-Forward',
+    'F-C': 'Forward-Center',
+    'F-G': 'Forward-Guard',
+    'G-F': 'Guard-Forward',
+    'G-C': 'Guard-Center'
+}
+# --------------------------------------------------------------------
+
 # A mapping from URL slugs to the team's official full name
+# ... (rest of your team_name_map dictionary) ...
 team_name_map = {
     'celtics': 'Boston Celtics',
     'raptors': 'Toronto Raptors',
@@ -40,6 +55,7 @@ team_name_map = {
     'pelicans': 'New Orleans Pelicans',
 }
 
+
 # Get all NBA teams once when the app starts
 nba_teams = teams.get_teams()
 
@@ -72,8 +88,14 @@ def team_page(team_name_slug):
             roster_data = commonteamroster.CommonTeamRoster(team_id=team_id)
             players_df = roster_data.get_data_frames()[0]
 
-            # Convert the dataframe to a list of dictionaries, including PLAYER_ID
-            players = players_df[['PLAYER_ID', 'PLAYER', 'POSITION', 'HEIGHT', 'WEIGHT', 'AGE']].to_dict('records')
+            players = players_df[['PLAYER_ID', 'PLAYER', 'NUM', 'POSITION', 'HEIGHT', 'WEIGHT', 'AGE']].to_dict('records')
+
+            # ----------------- MODIFIED: Translate position abbreviations -----------------
+            for player in players:
+                abbreviation = player['POSITION']
+                # Use .get() to safely retrieve the full name, or use the original abbreviation if not found
+                player['POSITION'] = POSITION_MAP.get(abbreviation, abbreviation)
+            # ------------------------------------------------------------------------------
 
             # Pass the team name and player data to the template
             return render_template('players.html', players=players, team=full_team_name)
